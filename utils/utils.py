@@ -152,6 +152,7 @@ def create_section_2(df):
 
     # Define the columns you want to include in the subset
     section_2_columns = [
+        's1_edad', 's1_genero', 's1_horas_semana_pacientes_atendidos',
         's1_orientacion_teo','s2_evidencia_cientifica', 's2_experiencia_personal', 's2_entrenamiento_clinica',
         's2_tratamiento_preferencia_consultantes', 's2_intuicion', 's2_terapia_personal'
     ]
@@ -195,6 +196,7 @@ def create_section_3(df):
 
     # Define the columns you want to include in the subset
     section_3_columns = [
+        's1_edad', 's1_genero', 's1_horas_semana_pacientes_atendidos',
         's1_orientacion_teo','s3_tratamiento_personal_consultantes', 's3_investigacion_empirica_ensayos_controlados',
         's3_supervision', 's3_estudios_de_caso', 's3_discusion_pares', 's3_libros', 
         's3_observaciones_casos_clinicos', 's3_medidas_resultado', 's3_guias_manuales_clinicos'
@@ -240,6 +242,7 @@ def create_section_4(df):
 
     # Define the columns you want to include in the subset
     section_4_columns = [
+        's1_edad', 's1_genero', 's1_horas_semana_pacientes_atendidos',
         's1_orientacion_teo','s4_apertura_terapias_desarrolladas_por_investigadores', 's4_nueva_terapia_intento',
         's4_terapia_manualizada', 's4_diagnosticos_utilizados_son_simples', 
         's4_tratamientos_preferencia_no_probados_ensayo_controlado', 's4_enfoque_tratamiento_individual', 
