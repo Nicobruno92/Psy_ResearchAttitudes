@@ -365,5 +365,3 @@ def plot_section(df_subset, variables, y_variable='s1_orientacion_teo', num_cols
 
     plt.tight_layout()
     plt.show()
-
-
