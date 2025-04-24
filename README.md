@@ -1,12 +1,10 @@
 # Theoretical Orientation and Research Attitudes in Psychotherapy
 
-The aim of this project is to study the relationship between theoretical orientations in psychotherapy (e.g., psychoanalysis, cognitive-behavioral therapy) and the use of scientific evidence and research attitudes by psychotherapists. 
+In this project, we studied the relationship between theoretical orientations in psychotherapy (e.g., psychoanalysis, cognitive-behavioral therapy, etc.) and the use of scientific evidence and research attitudes by psychotherapists. 
 
-The project seeks to determine whether certain orientations (such as psychoanalysis) rely less on scientific evidence compared to others (such as cognitive behavioral therapy). This hypothesis is tested using MANOVA, corrected with Tukey post-hoc analyses, to assess differences across theoretical orientations.
+Our objective was to determine whether certain orientations (such as psychoanalysis) rely less or more on scientific evidence compared to others (such as cognitive behavioral therapy). This hypothesis was tested using MANCOVA (corrected with Tukey post-hoc analyses), PCA, cluster, and multinomial logistic regression analysis, to assess differences across theoretical orientations.
 
 ## Main Findings 
-
-- As expected, cognitive-behavioral therapies (TCC) demonstrate a stronger reliance on empirical, evidence-based practices compared to eclectic and psychoanalytic orientations.
 
 Psychoanalytic practitioners differ significantly from TCC and eclectic practitioners in several areas:
 
@@ -27,19 +25,17 @@ project_root/
 │
 ├── notebooks/
 │   ├── analysis/
-│   │   ├── exploratory_analysis.ipynb    # Exploratory data analysis and visualizations
-│   │   ├── statistical_analysis.ipynb    # Statistical analysis, including MANOVA and Tukey tests
+│   │   ├── cluster_analysis.ipynb    # PCA and cluster data analysis and visualizations
+│   │   ├── statistical_analysis.ipynb    # Statistical analysis, including MANCOVA and Tukey tests
 │   │
 │   ├── data_featuring/
 │       ├── data_cleaning.ipynb           # Data cleaning and preprocessing steps
 │       ├── data_featuring.ipynb          # Feature extraction and selection
 │
 ├── utils/
-│   └── utils.py                    # Utility functions for data loading, preprocessing, etc.
+│   └── utils.py                    # Utility functions for data loading, preprocessing, data featuring, plots, etc.
 │
 ├── .gitignore
-│
-├── original_analysis_gyani.ipynb   # First analyses conducted 
 │
 └── README.md                       # Project documentation and organization
 ```
