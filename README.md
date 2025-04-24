@@ -6,7 +6,11 @@ Our objective was to determine whether certain orientations (such as psychoanaly
 
 ## Main Findings 
 
-Psychoanalytic practitioners differ significantly from TCC and eclectic practitioners in several areas:
+- Sources such as books, supervision, and peer discussion were more commonly used than empirical research across all orientations; however, CBT practitioners used outcome measures and clinical guidelines significantly more often than psychoanalysts.
+- Cluster analysis revealed four therapist profiles that differed by age and workload. Younger (mainly CBT) therapists were more open to research, while older (mainly psychoanalytic) therapists were more conservative.
+- A research-practice gap persists in Argentine psychotherapy.
+
+Additionally, psychoanalytic practitioners differ significantly from TCC and eclectic practitioners in several areas:
 
 - Less engagement with evidence-based practices: They show significantly less use of outcome measures, lower openness to researcher-developed therapies, and less interest in learning or applying evidence-based treatments.
 - Lower reliance on supervision and external evidence requirements: Psychoanalytic practitioners report relying less on supervision and do not emphasize the need for their supervisors to require evidence-based practices.
