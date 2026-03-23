@@ -3,6 +3,7 @@ import os
 import math
 import seaborn as sns
 import matplotlib.pyplot as plt
+import numpy as np
 
 def preprocess_sheet(sheet_id, output_filename='preprocessed.csv'):
     
@@ -146,6 +147,107 @@ def data_featuring(df):
     # Save the DataFrame as CSV
     df_cleaned.to_csv(output_file, index=False)
     
+    return df_cleaned
+
+def data_featuring_sensitivity(df):
+
+    columns_to_remove = [
+        'Timestamp', 'participacion', 'claridad_preguntas', 
+        's4_pregunta_inapropiada_comentario', 's4_preguntas_adicionales', 
+        's4_preguntas_adicionales_sugerencias', 'comentario_extra', 
+        'formacion_publica_vs_privada', 
+        '¿Le parecieron claras todas las preguntas?.1', 
+        'En el caso de que haya respondido NO, ¿cuál/es no le parecieron CLARAS y por qué?.1', 
+        '¿Cree que alguna pregunta es inapropiada?.1', 
+        'En el caso de que haya respondido SÍ, ¿cuál/es no le parecieron APROPIADAS y por qué?', 
+        '¿Considera que se podrían hacer otras preguntas que aporten información valiosa a lo que se intenta estudiar?.1', 
+        'En el caso de que haya respondido SÍ, ¿cuál/es?.1', 
+        '¿Le gustaría agregar otro comentario?.1',
+        'claridad_preguntas_comentario',
+        'pregunta_inapropiada',
+        'pregunta_inapropiada_comentario',
+        'preguntas_adicionales',
+        'preguntas_adicionales_sugerencias'
+    ]
+
+    # ... columns_to_remove stays the same ...
+    df_cleaned = df.drop(columns=columns_to_remove, errors='ignore')
+
+    # Step 1: S2 — 0 → NaN (same as before)
+    columns_s2 = ['s2_evidencia_cientifica', 's2_experiencia_personal', 's2_entrenamiento_clinica', 
+                  's2_tratamiento_preferencia_consultantes', 's2_intuicion', 's2_terapia_personal']
+    for column in columns_s2:
+        df_cleaned[column] = df_cleaned[column].replace(0, np.nan)
+
+    # Step 2: S4 — 8 → 0 (same as before, must happen before step 3)
+    columns_replace_8_with_0 = [
+        's4_actualizacion_info_cientifica', 's4_formacion_enfasis_investigacion',
+        's4_supervisores_terapia_evidencia_requerimiento', 's4_tratamientos_cientificos_eficientes',
+        's4_atraer_consultantes_con_tbe', 's4_hallazgos_cientificos_practica_diaria', 
+        's4_interes_aprender_tbe', 's4_tratamientos_utilizados_base_empirica', 
+        's4_complejidad_consultantes_ensayos_clinicos', 's4_consultantes_prefieren_otros_tratamientos',
+        's4_no_tiempo_aprender_tbe', 's4_capacitacion_tbe_demasiado_dinero', 's4_no_saber_tbe', 
+        's4_entrenamiento_clinico_no_info_tbe', 's4_empleador_no_fondos_capacitacion_tbe'
+    ]
+    for column in columns_replace_8_with_0:
+        df_cleaned[column] = df_cleaned[column].replace(8, 0)
+
+    # Step 3: NEW — recode ALL remaining 0s in S3 and S4 to NaN
+    columns_s3_s4 = [col for col in df_cleaned.columns 
+                     if col.startswith('s3_') or col.startswith('s4_')]
+    for column in columns_s3_s4:
+        df_cleaned[column] = df_cleaned[column].replace(0, np.nan)
+
+    df_cleaned.to_csv('../../data/sensitivity_featured_data.csv', index=False)
+    return df_cleaned
+
+def data_featuring_cluster(df):
+    """Cluster-specific preprocessing — 0s kept in S2, S3 and S4.
+    Used ONLY for cluster analysis to preserve sample size.
+    Justification: listwise deletion with 0→NaN reduces N to ~36,
+    making clustering statistically inviable.
+    0 is treated as lowest ordinal position across all sections,
+    representing non-engagement or non-response consistently."""
+
+    columns_to_remove = [
+        'Timestamp', 'participacion', 'claridad_preguntas', 
+        's4_pregunta_inapropiada_comentario', 's4_preguntas_adicionales', 
+        's4_preguntas_adicionales_sugerencias', 'comentario_extra', 
+        'formacion_publica_vs_privada', 
+        '¿Le parecieron claras todas las preguntas?.1', 
+        'En el caso de que haya respondido NO, ¿cuál/es no le parecieron CLARAS y por qué?.1', 
+        '¿Cree que alguna pregunta es inapropiada?.1', 
+        'En el caso de que haya respondido SÍ, ¿cuál/es no le parecieron APROPIADAS y por qué?', 
+        '¿Considera que se podrían hacer otras preguntas que aporten información valiosa a lo que se intenta estudiar?.1', 
+        'En el caso de que haya respondido SÍ, ¿cuál/es?.1', 
+        '¿Le gustaría agregar otro comentario?.1',
+        'claridad_preguntas_comentario',
+        'pregunta_inapropiada',
+        'pregunta_inapropiada_comentario',
+        'preguntas_adicionales',
+        'preguntas_adicionales_sugerencias'
+    ]
+    df_cleaned = df.drop(columns=columns_to_remove, errors='ignore')
+
+    # S2 zeros are KEPT as valid responses (consistent with S3 and S4)
+    # 0 = lowest ordinal position across all sections for clustering purposes
+
+    # S4 — 8 → 0 (epistemological rejection treated same as non-engagement)
+    columns_replace_8_with_0 = [
+        's4_actualizacion_info_cientifica', 's4_formacion_enfasis_investigacion',
+        's4_supervisores_terapia_evidencia_requerimiento', 's4_tratamientos_cientificos_eficientes',
+        's4_atraer_consultantes_con_tbe', 's4_hallazgos_cientificos_practica_diaria', 
+        's4_interes_aprender_tbe', 's4_tratamientos_utilizados_base_empirica', 
+        's4_complejidad_consultantes_ensayos_clinicos', 's4_consultantes_prefieren_otros_tratamientos',
+        's4_no_tiempo_aprender_tbe', 's4_capacitacion_tbe_demasiado_dinero', 's4_no_saber_tbe', 
+        's4_entrenamiento_clinico_no_info_tbe', 's4_empleador_no_fondos_capacitacion_tbe'
+    ]
+    for column in columns_replace_8_with_0:
+        df_cleaned[column] = df_cleaned[column].replace(8, 0)
+
+    # S3/S4 zeros kept as valid responses for clustering
+
+    df_cleaned.to_csv('../../data/featured_data_cluster.csv', index=False)
     return df_cleaned
 
 def create_section_2(df):
